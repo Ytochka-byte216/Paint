@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity {
     Button clear;
     Button change;
 
+    //ДОБАВЛЕНЫ ФУНКЦИИ: ЛАСТИ, ОТМЕНИТЬ ПОСЛДЕНЕЕ ДЕЙСТВИЕ И ВЕРНУТЬ ОТМЕНЕННОЕ ДЕЙСТВИЕ
+    Button eraser;
+    Button undo;
+    Button redo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         clear = findViewById(R.id.btnClear);
         change = findViewById(R.id.btnColor);
         paintView = findViewById(R.id.paintView);
+        eraser = findViewById(R.id.btnEraser);
+        undo = findViewById(R.id.btnUndo);
+        redo = findViewById(R.id.btnRedo);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +49,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 paintView.changeColor(change);
+            }
+        });
+
+        eraser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // просто переключаем режим
+                boolean nowOn = !paintView.eraserOn;
+                paintView.setEraser(nowOn);
+                eraser.setText(nowOn ? "eraser: on" : "eraser");
+            }
+        });
+
+        undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paintView.undo();
+            }
+        });
+
+        redo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paintView.redo();
             }
         });
 

@@ -52,9 +52,12 @@ public class PaintView extends View {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                cuttentStroke = new Stroke(currentColor,strokeWidth);
+                int color = eraserOn ? Color.WHITE : currentColor; //возможно будет ошибка в 56 строке
+                float width = eraserOn ? strokeWidth * 2f : strokeWidth; // ластик толще
+                cuttentStroke = new Stroke(color, width);
                 cuttentStroke.path.moveTo(x,y);
                 strokes.add(cuttentStroke);
+                removedStrokes.clear();
                 return true;
 
             case MotionEvent.ACTION_MOVE:
@@ -107,5 +110,39 @@ public class PaintView extends View {
             Toast.makeText(context, "Ошибка сохранения", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    // ластик
+    boolean eraserOn = false;
+
+    // для redo - здесь хранятся отменённые штрихи
+    ArrayList<Stroke> removedStrokes = new ArrayList<>();
+
+    // переключение ластика
+    public void setEraser(boolean on){
+        eraserOn = on;
+    }
+
+    // толщина кисти
+    public void setStrokeWidth(float width){
+        strokeWidth = width;
+    }
+
+    // отмена последнего штриха
+    public void undo(){
+        if(strokes.size() > 0){
+            Stroke last = strokes.remove(strokes.size() - 1);
+            removedStrokes.add(last);
+            invalidate();
+        }
+    }
+
+    // вернуть отменённый штрих
+    public void redo(){
+        if(removedStrokes.size() > 0){
+            Stroke last = removedStrokes.remove(removedStrokes.size() - 1);
+            strokes.add(last);
+            invalidate();
+        }
     }
 }

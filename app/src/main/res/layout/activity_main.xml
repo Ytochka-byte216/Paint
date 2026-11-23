@@ -44,4 +44,22 @@
         android:text="save"
         android:layout_marginBottom="30dp"/>
 
+    <Button
+        android:id="@+id/btnEraser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eraser"/>
+
+    <Button
+        android:id="@+id/btnUndo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="undo"/>
+
+    <Button
+        android:id="@+id/btnRedo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="redo"/>
+
 </LinearLayout>
