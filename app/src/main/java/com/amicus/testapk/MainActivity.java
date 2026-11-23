@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
     Button undo;
     Button redo;
 
+    Button thin;
+    Button medium;
+    Button thick;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         eraser = findViewById(R.id.btnEraser);
         undo = findViewById(R.id.btnUndo);
         redo = findViewById(R.id.btnRedo);
+        thin = findViewById(R.id.btnThin);
+        medium = findViewById(R.id.btnMedium);
+        thick = findViewById(R.id.btnThick);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +80,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 paintView.redo();
+            }
+        });
+        thin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paintView.setStrokeWidth(5f);   // тонкая кисть
+            }
+        });
+
+        medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paintView.setStrokeWidth(10f);  // средняя (как было по умолчанию)
+            }
+        });
+
+        thick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paintView.setStrokeWidth(25f);  // толстая кисть
             }
         });
 
